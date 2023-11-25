@@ -1,0 +1,60 @@
+body:not(.overlay-chat) ytd-watch-flexy[flexy][js-panel-height_] #chat.ytd-watch-flexy:not([collapsed]).ytd-watch-flexy {
+    /* make sure normal chat's dimensions are not affected by overlay chat resizing */
+    position: static;
+    height: 100% !important;
+    min-width: 100%;
+    max-width: 100%;
+}
+
+body.overlay-chat ytd-watch-flexy[flexy][js-panel-height_] #chat.ytd-watch-flexy:not([collapsed]).ytd-watch-flexy {
+    border: 0;
+    /* remove normal chat's border */
+    position: absolute;
+    /* free-floating relative to the viewport */
+    /* initial dimensions */
+    left: 24px;
+    top: 0px;
+    bottom: 60px;
+    margin: 0;
+    height: calc(100% - 60px);
+    width: calc(25vw - 24px);
+    min-height: 0px;
+    /*360px;*/
+    max-height: 100vh;
+    min-width: 298px;
+    max-width: calc(100vw - 24px);
+    /* prepare to make resizable on hover */
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.overlay-chat ytd-watch-flexy[flexy][js-panel-height_] #chat.ytd-watch-flexy:not([collapsed]).ytd-watch-flexy:hover {
+    /* make resizable on hover */
+    resize: both;
+}
+
+.overlay-chat ytd-live-chat-frame[darker-dark-theme] #show-hide-button.ytd-live-chat-frame {
+    /* hide the show / hide chat button in overlay chat */
+    display: none;
+}
+
+div.drag-button {
+    opacity: 0;
+    /* drag buttons should be hidden normally */
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    background-color: white;
+}
+
+.overlay-chat #chat:hover div.drag-button {
+    /* show drag buttons when chat is hovered over in overlay mode */
+    opacity: 1;
+}
+
+.overlay-chat div.chat-mask {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}

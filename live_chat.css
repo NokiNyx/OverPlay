@@ -1,0 +1,125 @@
+.overlay-chat yt-live-chat-app {
+  min-height: 0px;
+}
+
+.overlay-chat yt-live-chat-renderer {
+  /* overlay chat background should be transparent */
+  background: transparent;
+}
+
+.overlay-chat yt-live-chat-header-renderer {
+  /* hide chat header in overlay mode */
+  display: none;
+}
+
+.overlay-chat yt-live-chat-ticker-renderer {
+  background: transparent;
+  /* overlay chat background should be transparent */
+  margin-top: 8px;
+  /* don't stick to the top edge of the screen */
+}
+
+.overlay-chat yt-live-chat-ticker-renderer div#items {
+  /* make it more compact for overlay mode */
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.overlay-chat yt-live-chat-banner-manager {
+  /* remove the default gradient background */
+  background: transparent;
+}
+
+.overlay-chat yt-live-chat-banner-renderer {
+  padding: 4px;
+}
+
+.overlay-chat yt-live-chat-banner-renderer #contents {
+  padding: 0px;
+}
+
+.overlay-chat #chat #item-scroller {
+  /* chat scrollbar styles */
+  scrollbar-color: transparent transparent;
+  /* hidden by default */
+  scrollbar-width: thin;
+}
+
+.overlay-chat yt-live-chat-text-message-renderer {
+  /* make messages more compact for overlay mode */
+  margin: 0;
+  padding-left: 4px;
+}
+
+.overlay-chat #chat #items {
+  /* allow for multi-column chat */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.overlay-chat #chat #items>* {
+  /* make messages more compact for overlay mode */
+  margin: 0;
+  padding-left: 4px;
+}
+
+.overlay-chat #chat #items yt-live-chat-text-message-renderer:hover {
+  /* show normal chat background for message when a message is hovered over */
+  background-color: var(--yt-live-chat-background-color);
+  /* immitate youtube's card style */
+  border-radius: 4px;
+}
+
+.overlay-chat yt-live-chat-text-message-renderer #content {
+  /* immitate youtube's card style */
+  border-radius: 4px;
+  /* pad away from rounded corners */
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.overlay-chat #chat #items yt-live-chat-text-message-renderer #content:not(:hover) {
+  /* use semi-transparent background for messages body when not hovered over */
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.overlay-chat yt-live-chat-text-message-renderer #content #author-name {
+  /* use brighter author name colors to aid readability against semi-transparent background */
+  filter: brightness(150%);
+}
+
+.overlay-chat yt-live-chat-paid-message-renderer {
+  /* make it more compact for overlay mode */
+  padding-left: 4px;
+  overflow: hidden;
+}
+
+.overlay-chat yt-icon-button#show-more {
+  bottom: 20%;
+}
+
+.overlay-chat yt-live-chat-message-input-renderer,
+.overlay-chat div#input-panel yt-live-chat-restricted-participation-renderer div#container {
+  /* display as overlay at the bottom of the chat */
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  /* make it more compact for overlay mode */
+  padding: 0.5em;
+  /* immitate youtube's card style */
+  border-radius: 4px;
+}
+
+.overlay-chat yt-live-chat-message-input-renderer:not(:hover),
+.overlay-chat div#input-panel yt-live-chat-restricted-participation-renderer div#container:not(:hover) {
+  /* hide message input when not hovered over */
+  opacity: 0;
+}
+
+.overlay-chat yt-live-chat-message-input-renderer #avatar,
+.overlay-chat yt-live-chat-message-input-renderer yt-live-chat-author-chip {
+  /* hide user name and avatar in message input when in overlay mode */
+  display: none;
+}
