@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "OverPlay",
-    "version": "0.1",
+    "version": "0.1.1",
     "description": "YouTube chat overlay when playing streams / videos in fullscreen mode.",
     "content_scripts": [
         {
@@ -17,7 +17,8 @@
         },
         {
             "matches": [
-                "https://www.youtube.com/live_chat?*"
+                "https://www.youtube.com/live_chat?*",
+                "https://www.youtube.com/live_chat_replay?*"
             ],
             "css": [
                 "live_chat.css"
