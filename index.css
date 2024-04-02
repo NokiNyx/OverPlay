@@ -1,9 +1,17 @@
-body:not(.overlay-chat) ytd-watch-flexy[flexy][js-panel-height_] #chat.ytd-watch-flexy:not([collapsed]).ytd-watch-flexy {
+body:not(.overlay-chat) ytd-watch-flexy[flexy][js-panel-height_] #secondary #chat.ytd-watch-flexy:not([collapsed]).ytd-watch-flexy {
     /* make sure normal chat's dimensions are not affected by overlay chat resizing */
-    position: static;
-    height: 100% !important;
-    min-width: 100%;
-    max-width: 100%;
+    top: unset !important;
+    left: unset !important;
+    height: unset !important;
+    width: unset !important;
+}
+
+body:not(.overlay-chat) ytd-watch-flexy[flexy][js-panel-height_] #columns>#chat-container #chat.ytd-watch-flexy:not([collapsed]).ytd-watch-flexy {
+    /* make sure theater mode chat's dimensions are not affected by overlay chat resizing */
+    top: var(--ytd-watch-flexy-masthead-height) !important;
+    left: unset !important;
+    height: unset !important;
+    width: var(--ytd-watch-flexy-sidebar-width) !important;
 }
 
 body.overlay-chat ytd-watch-flexy[flexy][js-panel-height_] #chat.ytd-watch-flexy:not([collapsed]).ytd-watch-flexy {
