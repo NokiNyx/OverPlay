@@ -55,9 +55,12 @@ class OverlayChatManager {
     document.body.classList.add('overlay-chat')
     this.chat.parentNode.replaceChild(this.chatPlaceholder, this.chat)
     this.theater.appendChild(this.chat)
-    this.chatIframe.contentWindow.addEventListener("DOMContentLoaded", (e) => {
+
+    this.overlayChatLoadListener = () => {
       this.chatIframe.contentDocument.body.classList.add('overlay-chat')
-    }, {'once': true})
+    }
+    this.chatIframe.addEventListener('load', this.overlayChatLoadListener)
+
     this.addChatMask()
     this.addDragButton()
   }
@@ -67,7 +70,7 @@ class OverlayChatManager {
     if (this.chatPlaceholder.parentNode !== null) {
       this.chatPlaceholder.parentNode.replaceChild(this.chat, this.chatPlaceholder)
     }
-    this.chatIframe.contentDocument.body.classList.remove('overlay-chat')
+    this.chatIframe.removeEventListener('load', this.overlayChatLoadListener)
   }
 
   addChatMask() {
