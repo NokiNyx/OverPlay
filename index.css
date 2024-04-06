@@ -27,10 +27,10 @@ body.overlay-chat ytd-watch-flexy[flexy][js-panel-height_] #chat.ytd-watch-flexy
     height: calc(100% - 60px);
     width: calc(25vw - 24px);
     min-height: 0px;
-    /*360px;*/
     max-height: 100vh;
     min-width: 298px;
     max-width: calc(100vw - 24px);
+    border-radius: 0;
     /* prepare to make resizable on hover */
     overflow: scroll;
     scrollbar-width: none;
@@ -59,9 +59,9 @@ div.drag-button {
     opacity: 0;
     /* drag buttons should be hidden normally */
     position: absolute;
-    height: 10px;
-    width: 10px;
-    background-color: white;
+    height: 12px;
+    width: 12px;
+    background: url(assets/move.svg) center / contain;
 }
 
 .overlay-chat #chat:hover div.drag-button {
