@@ -16,4 +16,4 @@ Read and write chat messages while your YouTube player is in fullscreen mode.
 
 ### Credits
 
-`assets/move.svg` was edited from an icon obtained from [UIcons by Flaticon](https://www.flaticon.com/uicons).
+`assets/move.svg` and `assets/resize.svg` were edited from icons obtained from [UIcons by Flaticon](https://www.flaticon.com/uicons).
