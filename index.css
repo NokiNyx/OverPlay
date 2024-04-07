@@ -1,3 +1,7 @@
+body.overlay-chat-dragging {
+    cursor: grabbing;
+}
+
 body.overlay-chat-resizing {
     cursor: se-resize;
 }
@@ -58,6 +62,11 @@ div.drag-button {
     height: 12px;
     width: 12px;
     background: url(assets/move.svg) center / contain;
+    cursor: grab;
+
+    .overlay-chat-dragging & {
+        cursor: grabbing;
+    }
 }
 
 .overlay-chat #chat:hover div.drag-button {
