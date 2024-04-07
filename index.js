@@ -62,6 +62,7 @@ class OverlayChatManager {
     this.chatIframe.addEventListener('load', this.overlayChatLoadListener)
 
     this.addChatMask()
+    this.addResizeHandle()
     this.addDragButton()
   }
 
@@ -74,6 +75,10 @@ class OverlayChatManager {
   }
 
   addChatMask() {
+    if (this.chatMask) {
+      return
+    }
+
     this.chatMask = document.createElement('div')
     this.chatMask.classList.add('chat-mask')
     this.chat.appendChild(this.chatMask)
@@ -81,6 +86,10 @@ class OverlayChatManager {
   }
 
   addDragButton() {
+    if (this.dragButton) {
+      return
+    }
+
     let chat = this.chat
     let chatMask = this.chatMask
     let btn = document.createElement('div')
@@ -88,25 +97,19 @@ class OverlayChatManager {
     btn.title = "Hold to drag."
 
     function startDrag(e) {
-      e = e || window.event;
-      e.preventDefault();
-      chatMask.style.display = 'block'
+      document.body.classList.add('overlay-chat-dragging')
       document.addEventListener('mousemove', dragHandler);
       document.addEventListener('mouseup', stopDrag, { once: true })
       console.log("Started drag")
     }
 
     function stopDrag(e) {
-      e = e || window.event;
-      e.preventDefault();
-      chatMask.style.display = 'none'
+      document.body.classList.remove('overlay-chat-dragging')
       document.removeEventListener('mousemove', dragHandler);
       console.log("Stopped drag")
     }
 
     function dragHandler(e) {
-      e = e || window.event;
-      e.preventDefault();
       // set the element's new position:
       console.log(e.clientY)
       let newTop = e.clientY + 'px'
@@ -122,6 +125,47 @@ class OverlayChatManager {
     this.dragButton = btn
 
     console.log('Added drag button.')
+  }
+
+  addResizeHandle() {
+    if (this.resizeHandle) {
+      return
+    }
+
+    let chat = this.chat
+    let chatMask = this.chatMask
+    let btn = document.createElement('div')
+    btn.classList.add('resize-handle')
+    btn.title = "Hold to resize."
+
+    function startDrag(e) {
+      document.body.classList.add('overlay-chat-resizing')
+      document.addEventListener('mousemove', dragHandler);
+      document.addEventListener('mouseup', stopDrag, { once: true })
+      console.log("Started resize")
+    }
+
+    function stopDrag(e) {
+      document.body.classList.remove('overlay-chat-resizing')
+      document.removeEventListener('mousemove', dragHandler);
+      console.log("Stopped resize")
+    }
+
+    function dragHandler(e) {
+      const { x, y } = chat.getBoundingClientRect()
+      let newHeight = e.clientY -  y + 1 + 'px'
+      chat.style.height = newHeight
+
+      let newWidth = e.clientX - x + 1 + 'px'
+      chat.style.width = newWidth
+    }
+
+    btn.addEventListener('mousedown', startDrag)
+
+    chat.appendChild(btn)
+    this.resizeHandle = btn
+
+    console.log('Added resize handle.')
   }
 
   listenToFullscreen() {

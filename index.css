@@ -1,3 +1,7 @@
+body.overlay-chat-resizing {
+    cursor: se-resize;
+}
+
 body:not(.overlay-chat) ytd-watch-flexy[flexy][js-panel-height_] #secondary #chat.ytd-watch-flexy {
     /* make sure normal chat's dimensions are not affected by overlay chat resizing */
     top: unset !important;
@@ -31,14 +35,6 @@ body.overlay-chat ytd-watch-flexy[flexy][js-panel-height_] #chat.ytd-watch-flexy
     min-width: 298px;
     max-width: calc(100vw - 24px);
     border-radius: 0;
-    /* prepare to make resizable on hover */
-    overflow: scroll;
-    scrollbar-width: none;
-}
-
-.overlay-chat ytd-watch-flexy[flexy][js-panel-height_] #chat.ytd-watch-flexy:not([collapsed]).ytd-watch-flexy:hover {
-    /* make resizable on hover */
-    resize: both;
 }
 
 .overlay-chat ytd-live-chat-frame[darker-dark-theme] #show-hide-button.ytd-live-chat-frame {
@@ -69,9 +65,31 @@ div.drag-button {
     opacity: 1;
 }
 
+div.resize-handle {
+    opacity: 0;
+    /* drag buttons should be hidden normally */
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    bottom: 0;
+    right: 0;
+    background: url(assets/resize.svg) center / contain;
+    cursor: se-resize;
+
+    .overlay-chat #chat:hover & {
+        /* show resize handle when chat is hovered over in overlay mode */
+        opacity: 1;
+    }
+}
+
 .overlay-chat div.chat-mask {
     display: none;
     position: absolute;
     height: 100%;
     width: 100%;
+
+    .overlay-chat-dragging &,
+    .overlay-chat-resizing & {
+        display: block;
+    }
 }
