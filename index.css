@@ -91,11 +91,12 @@ div.resize-handle {
     }
 }
 
-.overlay-chat div.chat-mask {
+.overlay-chat div.drag-mask {
     display: none;
     position: absolute;
     height: 100%;
     width: 100%;
+    z-index: 10000;
 
     .overlay-chat-dragging &,
     .overlay-chat-resizing & {

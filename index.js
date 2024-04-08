@@ -6,7 +6,7 @@ class OverlayChatManager {
     this.theater = document.querySelector(FULLSCREEN_PLAYER_SELECTOR)
     this.chatPlaceholder = document.createElement('div')
 
-    this.chatMask = null
+    this.dragMasks = null
     this.dragButton = null
     this.fullscreenObserver = null
 
@@ -61,7 +61,7 @@ class OverlayChatManager {
     }
     this.chatIframe.addEventListener('load', this.overlayChatLoadListener)
 
-    this.addChatMask()
+    this.addDragMasks()
     this.addResizeHandle()
     this.addDragButton()
   }
@@ -74,15 +74,21 @@ class OverlayChatManager {
     this.chatIframe.removeEventListener('load', this.overlayChatLoadListener)
   }
 
-  addChatMask() {
-    if (this.chatMask) {
+  addDragMasks() {
+    if (this.dragMasks) {
       return
     }
 
-    this.chatMask = document.createElement('div')
-    this.chatMask.classList.add('chat-mask')
-    this.chat.appendChild(this.chatMask)
-    console.log('Added chat mask.')
+    // two drag masks are needed: Firefox needs `chatMask`, Chromium needs `bodyMask`
+    const chatMask = document.createElement('div')
+    chatMask.classList.add('drag-mask')
+    this.chat.appendChild(chatMask)
+    const bodyMask = chatMask.cloneNode()
+    document.body.appendChild(bodyMask)
+
+    this.dragMasks = [chatMask, bodyMask]
+
+    console.log('Added drag masks.')
   }
 
   addDragButton() {
@@ -91,7 +97,6 @@ class OverlayChatManager {
     }
 
     let chat = this.chat
-    let chatMask = this.chatMask
     let btn = document.createElement('div')
     btn.classList.add('drag-button')
     btn.title = "Hold to drag."
@@ -133,7 +138,6 @@ class OverlayChatManager {
     }
 
     let chat = this.chat
-    let chatMask = this.chatMask
     let btn = document.createElement('div')
     btn.classList.add('resize-handle')
     btn.title = "Hold to resize."
