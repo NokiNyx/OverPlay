@@ -61,7 +61,8 @@ div.drag-button {
     position: absolute;
     height: 12px;
     width: 12px;
-    background: url(assets/move.svg) center / contain;
+    background: url(assets/move.svg) center / contain,
+        url(chrome-extension://__MSG_@@extension_id__/assets/move.svg) center / contain;
     cursor: grab;
 
     .overlay-chat-dragging & {
@@ -82,7 +83,8 @@ div.resize-handle {
     width: 12px;
     bottom: 0;
     right: 0;
-    background: url(assets/resize.svg) center / contain;
+    background: url(assets/resize.svg) center / contain,
+        url(chrome-extension://__MSG_@@extension_id__/assets/resize.svg) center / contain;
     cursor: se-resize;
 
     .overlay-chat #chat:hover & {
