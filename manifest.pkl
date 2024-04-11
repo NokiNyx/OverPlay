@@ -1,0 +1,48 @@
+yt_domain_match = "https://www.youtube.com/*"
+
+manifest {
+    manifest_version = 3
+    name = "OverPlay"
+    version = "0.2.2"
+    description = "YouTube chat overlay when playing streams / videos in fullscreen mode."
+    host_permissions {
+        yt_domain_match
+    }
+    content_scripts {
+        new {
+            matches {
+                yt_domain_match
+            }
+            js {
+                "index.js"
+            }
+            css {
+                "index.css"
+            }
+        }
+        new {
+            matches {
+                "https://www.youtube.com/live_chat?*"
+                "https://www.youtube.com/live_chat_replay?*"
+            }
+            css {
+                "live_chat.css"
+            }
+            all_frames = true
+        }
+    }
+    web_accessible_resources {
+        new {
+            resources {
+                "assets/*"
+            }
+            matches {
+                yt_domain_match
+            }
+        }
+    }
+}
+
+output {
+    value = manifest
+}
