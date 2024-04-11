@@ -18,6 +18,8 @@ Read and write chat messages while your YouTube player is in fullscreen mode.
 
 You will need to [install Pkl](https://pkl-lang.org/main/current/pkl-cli/index.html#installation) in order to generate the `manifest.json`. If you are downloading and installing manually (not using a package manager like Homebrew), you may need to place the executable under one of the directories in your `$PATH`, e.g. `$HOME/.local/bin`, so that `build.sh` can find the command.
 
+To build, simply run `build.sh` which will generate build directories under `build/{build_target}/`. Currently, the build targets are `firefox` and `chromium` (including Edge and Opera).
+
 ---
 
 ### Credits
