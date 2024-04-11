@@ -1,11 +1,22 @@
+target_manifest_version = if (read("env:BUILD_TARGET") == "firefox") 2 else 3
 yt_domain_match = "https://www.youtube.com/*"
+resources = new Listing {
+    new {
+        resources {
+            "assets/*"
+        }
+        matches {
+            yt_domain_match
+        }
+    }
+}
 
 manifest {
-    manifest_version = 3
+    manifest_version = target_manifest_version
     name = "OverPlay"
     version = "0.2.2"
     description = "YouTube chat overlay when playing streams / videos in fullscreen mode."
-    host_permissions {
+    [if (target_manifest_version == 2) "permissions" else "host_permissions"] {
         yt_domain_match
     }
     content_scripts {
@@ -31,16 +42,15 @@ manifest {
             all_frames = true
         }
     }
-    web_accessible_resources {
-        new {
-            resources {
-                "assets/*"
+    web_accessible_resources = 
+        if (target_manifest_version == 3) 
+            resources
+        else 
+            new {
+                for (res in resources) {
+                    ...res.resources
+                }
             }
-            matches {
-                yt_domain_match
-            }
-        }
-    }
 }
 
 output {
