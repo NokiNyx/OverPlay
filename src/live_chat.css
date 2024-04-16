@@ -100,6 +100,7 @@
 }
 
 .overlay-chat yt-live-chat-message-input-renderer,
+.overlay-chat yt-live-chat-message-input-renderer[updated-input-visuals],
 .overlay-chat div#input-panel yt-live-chat-restricted-participation-renderer div#container {
   /* display as overlay at the bottom of the chat */
   position: absolute;
