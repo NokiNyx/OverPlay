@@ -2,7 +2,17 @@
 
 Browser extension - YouTube chat overlay when playing streams / videos in fullscreen mode. Read and write chat messages while your YouTube player is in fullscreen mode.
 
-[Firefox extension page](https://addons.mozilla.org/en-US/firefox/addon/overplay/)
+<a href="https://addons.mozilla.org/en-US/firefox/addon/overplay/">
+    <img src="https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg" height="72px">
+</a>
+
+<a href="https://chromewebstore.google.com/detail/overplay/dfbdkehdednnaopopipjjagnhdddpkmp">
+    <img src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/HRs9MPufa1J1h5glNhut.png" height="72px">
+</a>
+
+[Edge Add-Ons](https://microsoftedge.microsoft.com/addons/detail/eibkfhpmcjnhgloaiacijolfpdaiebjb)
+
+Opera: official store listing still pending, but the extension should be installable through Chrome Web Store on Opera.
 
 ---
 
