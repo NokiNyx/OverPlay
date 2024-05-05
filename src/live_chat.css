@@ -25,6 +25,11 @@
   }
 }
 
+.overlay-chat #ticker:has(> [hidden])+#separator {
+  /* hide border between ticker and chat item list when ticker is hidden */
+  border: 0;
+}
+
 .overlay-chat yt-live-chat-banner-manager {
   /* remove the default gradient background */
   background: transparent;
@@ -99,6 +104,11 @@
 
 .overlay-chat yt-icon-button#show-more {
   bottom: 20%;
+}
+
+.overlay-chat #panel-pages.yt-live-chat-renderer {
+  /* remove unwanted border around the message input area */
+  border: 0;
 }
 
 .overlay-chat yt-live-chat-message-input-renderer,
