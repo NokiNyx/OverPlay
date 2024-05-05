@@ -6,39 +6,41 @@ body.overlay-chat-resizing {
     cursor: se-resize;
 }
 
-body:not(.overlay-chat) ytd-watch-flexy[flexy][js-panel-height_] #secondary #chat.ytd-watch-flexy {
-    /* make sure normal chat's dimensions are not affected by overlay chat resizing */
-    top: unset !important;
-    left: unset !important;
-    height: unset !important;
-    width: unset !important;
-}
+ytd-watch-flexy[flexy][js-panel-height_] #chat.ytd-watch-flexy {
+    body:not(.overlay-chat) #secondary & {
+        /* make sure normal chat's dimensions are not affected by overlay chat resizing */
+        top: unset !important;
+        left: unset !important;
+        height: unset !important;
+        width: unset !important;
+    }
 
-body:not(.overlay-chat) ytd-watch-flexy[flexy][js-panel-height_] #columns>#chat-container #chat.ytd-watch-flexy {
-    /* make sure theater mode chat's dimensions are not affected by overlay chat resizing */
-    top: var(--ytd-watch-flexy-masthead-height) !important;
-    left: unset !important;
-    height: unset !important;
-    width: var(--ytd-watch-flexy-sidebar-width) !important;
-}
+    body:not(.overlay-chat) #columns>#chat-container & {
+        /* make sure theater mode chat's dimensions are not affected by overlay chat resizing */
+        top: var(--ytd-watch-flexy-masthead-height) !important;
+        left: unset !important;
+        height: unset !important;
+        width: var(--ytd-watch-flexy-sidebar-width) !important;
+    }
 
-body.overlay-chat ytd-watch-flexy[flexy][js-panel-height_] #chat.ytd-watch-flexy {
-    border: 0;
-    /* remove normal chat's border */
-    position: absolute;
-    /* free-floating relative to the viewport */
-    /* initial dimensions */
-    left: 24px;
-    top: 0px;
-    bottom: 60px;
-    margin: 0;
-    height: calc(100% - 60px);
-    width: calc(25vw - 24px);
-    min-height: 0px;
-    max-height: 100vh;
-    min-width: 298px;
-    max-width: calc(100vw - 24px);
-    border-radius: 0;
+    body.overlay-chat & {
+        border: 0;
+        /* remove normal chat's border */
+        position: absolute;
+        /* free-floating relative to the viewport */
+        /* initial dimensions */
+        left: 24px;
+        top: 0px;
+        bottom: 60px;
+        margin: 0;
+        height: calc(100% - 60px);
+        width: calc(25vw - 24px);
+        min-height: 0px;
+        max-height: 100vh;
+        min-width: 298px;
+        max-width: calc(100vw - 24px);
+        border-radius: 0;
+    }
 }
 
 .overlay-chat ytd-live-chat-frame[darker-dark-theme] #show-hide-button.ytd-live-chat-frame {
@@ -68,11 +70,11 @@ div.drag-button {
     .overlay-chat-dragging & {
         cursor: grabbing;
     }
-}
 
-.overlay-chat #chat:hover div.drag-button {
-    /* show drag buttons when chat is hovered over in overlay mode */
-    opacity: 1;
+    .overlay-chat #chat:hover & {
+        /* show drag buttons when chat is hovered over in overlay mode */
+        opacity: 1;
+    }
 }
 
 div.resize-handle {
