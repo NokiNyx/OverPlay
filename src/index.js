@@ -52,10 +52,10 @@ class OverlayChatManager {
     }
     const dimensions = {
       vidId,
-      top: this.chat.style.getPropertyValue('--overlay-chat-top'),
-      left: this.chat.style.getPropertyValue('--overlay-chat-left'),
-      height: this.chat.style.getPropertyValue('--overlay-chat-height'),
-      width: this.chat.style.getPropertyValue('--overlay-chat-width'),
+      top: document.documentElement.style.getPropertyValue('--overlay-chat-top'),
+      left: document.documentElement.style.getPropertyValue('--overlay-chat-left'),
+      height: document.documentElement.style.getPropertyValue('--overlay-chat-height'),
+      width: document.documentElement.style.getPropertyValue('--overlay-chat-width'),
     }
     const savedDimensions = JSON.parse(window.localStorage.getItem('overplaySavedDimensions')) ?? []
     const dimIdx = savedDimensions.findIndex(dims => dims.vidId == vidId)
@@ -72,10 +72,10 @@ class OverlayChatManager {
     const savedDimensions = JSON.parse(window.localStorage.getItem('overplaySavedDimensions'))
     const vidId = this.getVideoId()
     const dimensions = savedDimensions.find(dims => dims.vidId === vidId)
-    this.chat.style.setProperty('--overlay-chat-top', dimensions.top)
-    this.chat.style.setProperty('--overlay-chat-left', dimensions.left)
-    this.chat.style.setProperty('--overlay-chat-height', dimensions.height)
-    this.chat.style.setProperty('--overlay-chat-width', dimensions.width)
+    document.documentElement.style.setProperty('--overlay-chat-top', dimensions.top)
+    document.documentElement.style.setProperty('--overlay-chat-left', dimensions.left)
+    document.documentElement.style.setProperty('--overlay-chat-height', dimensions.height)
+    document.documentElement.style.setProperty('--overlay-chat-width', dimensions.width)
   }
 
   teardown() {
@@ -159,10 +159,10 @@ class OverlayChatManager {
       // set the element's new position:
       console.log(e.clientY)
       let newTop = e.clientY + 'px'
-      chat.style.setProperty('--overlay-chat-top', newTop)
+      document.documentElement.style.setProperty('--overlay-chat-top', newTop)
 
       let newLeft = e.clientX + 'px'
-      chat.style.setProperty('--overlay-chat-left', newLeft)
+      document.documentElement.style.setProperty('--overlay-chat-left', newLeft)
     }
 
     btn.addEventListener('mousedown', startDrag)
@@ -201,10 +201,10 @@ class OverlayChatManager {
     function dragHandler(e) {
       const { x, y } = chat.getBoundingClientRect()
       let newHeight = e.clientY -  y + 1 + 'px'
-      chat.style.setProperty('--overlay-chat-height', newHeight)
+      document.documentElement.style.setProperty('--overlay-chat-height', newHeight)
 
       let newWidth = e.clientX - x + 1 + 'px'
-      chat.style.setProperty('--overlay-chat-width', newWidth)
+      document.documentElement.style.setProperty('--overlay-chat-width', newWidth)
     }
 
     btn.addEventListener('mousedown', startDrag)

@@ -1,3 +1,14 @@
+:root {
+    /* default values */
+    --overlay-chat-left: 24px;
+    --overlay-chat-top: 0px;
+    --overlay-chat-height: 100%;
+    --overlay-chat-width: calc(25vw - 24px);
+
+    --overlay-chat-left-constrained: max(min(var(--overlay-chat-left), calc(100vw - 298px)), 24px);
+    --overlay-chat-width-constrained: max(var(--overlay-chat-width), 298px);
+}
+
 body.overlay-chat-dragging {
     cursor: grabbing;
 }
@@ -7,22 +18,16 @@ body.overlay-chat-resizing {
 }
 
 body.overlay-chat ytd-watch-flexy[flexy][js-panel-height_] #full-bleed-container #chat.ytd-watch-flexy {
-    /* default values */
-    --overlay-chat-left: 24px;
-    --overlay-chat-top: 0px;
-    --overlay-chat-height: 100%;
-    --overlay-chat-width: calc(25vw - 24px);
-
     border: 0;
     /* remove normal chat's border */
     position: absolute;
     /* free-floating relative to the viewport */
     /* initial dimensions */
-    left: max(min(var(--overlay-chat-left), 100vw - 298px), 24px);
+    left: var(--overlay-chat-left-constrained);
     top: var(--overlay-chat-top);
     margin: 0;
     height: var(--overlay-chat-height);
-    width: var(--overlay-chat-width);
+    width: var(--overlay-chat-width-constrained);
     min-height: 0px;
     max-height: calc(100vh - var(--overlay-chat-top));
     min-width: 298px;
