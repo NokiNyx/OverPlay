@@ -118,10 +118,10 @@ class OverlayChatManager {
       // set the element's new position:
       console.log(e.clientY)
       let newTop = e.clientY + 'px'
-      chat.style.top = newTop
+      chat.style.setProperty('--overlay-chat-top', newTop)
 
       let newLeft = `max(${e.clientX}px, 24px)`
-      chat.style.left = newLeft
+      chat.style.setProperty('--overlay-chat-left', newLeft)
     }
 
     btn.addEventListener('mousedown', startDrag)
@@ -158,10 +158,10 @@ class OverlayChatManager {
     function dragHandler(e) {
       const { x, y } = chat.getBoundingClientRect()
       let newHeight = e.clientY -  y + 1 + 'px'
-      chat.style.height = newHeight
+      chat.style.setProperty('--overlay-chat-height', newHeight)
 
       let newWidth = e.clientX - x + 1 + 'px'
-      chat.style.width = newWidth
+      chat.style.setProperty('--overlay-chat-width', newWidth)
     }
 
     btn.addEventListener('mousedown', startDrag)
