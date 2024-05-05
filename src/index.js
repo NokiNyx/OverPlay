@@ -120,7 +120,7 @@ class OverlayChatManager {
       let newTop = e.clientY + 'px'
       chat.style.setProperty('--overlay-chat-top', newTop)
 
-      let newLeft = `max(${e.clientX}px, 24px)`
+      let newLeft = e.clientX + 'px'
       chat.style.setProperty('--overlay-chat-left', newLeft)
     }
 

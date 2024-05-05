@@ -18,15 +18,15 @@ body.overlay-chat ytd-watch-flexy[flexy][js-panel-height_] #full-bleed-container
     position: absolute;
     /* free-floating relative to the viewport */
     /* initial dimensions */
-    left: var(--overlay-chat-left);
+    left: max(min(var(--overlay-chat-left), 100vw - 298px), 24px);
     top: var(--overlay-chat-top);
     margin: 0;
     height: var(--overlay-chat-height);
     width: var(--overlay-chat-width);
     min-height: 0px;
-    max-height: 100vh;
+    max-height: calc(100vh - var(--overlay-chat-top));
     min-width: 298px;
-    max-width: calc(100vw - 24px);
+    max-width: calc(100vw - var(--overlay-chat-left));
     border-radius: 0;
 }
 
