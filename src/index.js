@@ -103,6 +103,7 @@ class OverlayChatManager {
     this.addDragButton()
 
     this.loadChatDimensions()
+    this.setBottomChromeMode()
   }
 
   useNormalMode() {
@@ -111,6 +112,16 @@ class OverlayChatManager {
       this.chatPlaceholder.parentNode.replaceChild(this.chat, this.chatPlaceholder)
     }
     this.chatIframe.removeEventListener('load', this.overlayChatLoadListener)
+  }
+
+  setBottomChromeMode() {
+    const { left, right, bottom } = this.chat.getBoundingClientRect()
+    const { bottom: playerBottom, width: playerWidth } = this.chat.parentNode.getBoundingClientRect()
+    document.body.classList.remove('bottom-chrome-left', 'bottom-chrome-right')
+    if (playerBottom - bottom < 54) {
+      const rightSpace = playerWidth - right
+      document.body.classList.add(rightSpace >= left ? 'bottom-chrome-right' : 'bottom-chrome-left')
+    }
   }
 
   addDragMasks() {
@@ -138,11 +149,14 @@ class OverlayChatManager {
     const chat = this.chat
     const btn = document.createElement('div')
     const saveChatDimensions = this.saveChatDimensions.bind(this)
+    const setBottomChromeMode = this.setBottomChromeMode.bind(this)
     btn.classList.add('drag-button')
     btn.title = "Hold to drag."
 
     function startDrag(e) {
       document.body.classList.add('overlay-chat-dragging')
+      // temporarily remove bottom chrome mode to reduce performance issues
+      document.body.classList.remove('bottom-chrome-left', 'bottom-chrome-right')
       document.addEventListener('mousemove', dragHandler)
       document.addEventListener('mouseup', stopDrag, { once: true })
       console.log("Started drag")
@@ -152,6 +166,7 @@ class OverlayChatManager {
       document.body.classList.remove('overlay-chat-dragging')
       document.removeEventListener('mousemove', dragHandler)
       saveChatDimensions()
+      setBottomChromeMode()
       console.log("Stopped drag")
     }
 
@@ -181,11 +196,14 @@ class OverlayChatManager {
     const chat = this.chat
     const btn = document.createElement('div')
     const saveChatDimensions = this.saveChatDimensions.bind(this)
+    const setBottomChromeMode = this.setBottomChromeMode.bind(this)
     btn.classList.add('resize-handle')
     btn.title = "Hold to resize."
 
     function startDrag(e) {
       document.body.classList.add('overlay-chat-resizing')
+      // temporarily remove bottom chrome mode to reduce performance issues
+      document.body.classList.remove('bottom-chrome-left', 'bottom-chrome-right')
       document.addEventListener('mousemove', dragHandler)
       document.addEventListener('mouseup', stopDrag, { once: true })
       console.log("Started resize")
@@ -195,6 +213,7 @@ class OverlayChatManager {
       document.body.classList.remove('overlay-chat-resizing')
       document.removeEventListener('mousemove', dragHandler)
       saveChatDimensions()
+      setBottomChromeMode()
       console.log("Stopped resize")
     }
 

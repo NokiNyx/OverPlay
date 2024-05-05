@@ -99,3 +99,21 @@ div.resize-handle {
         display: block;
     }
 }
+
+.overlay-chat:is(.bottom-chrome-left, .bottom-chrome-right) .ytp-chrome-bottom {
+    width: auto !important;
+    left: 24px !important;
+    right: 24px !important;
+
+    .ytp-chapter-hover-container {
+        width: 100% !important;
+    }
+
+    .bottom-chrome-left & {
+        right: calc(100vw - var(--overlay-chat-left-constrained)) !important;
+    }
+
+    .bottom-chrome-right & {
+        left: calc(var(--overlay-chat-left-constrained) + var(--overlay-chat-width-constrained)) !important;
+    }
+}
