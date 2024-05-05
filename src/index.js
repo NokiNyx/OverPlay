@@ -41,6 +41,43 @@ class OverlayChatManager {
     }
   }
 
+  getVideoId() {
+    return new URL(document.location.href).searchParams.get('v')
+  }
+
+  saveChatDimensions() {
+    const vidId = this.getVideoId()
+    if (!vidId) {
+      return  // don't support anything other than the v param (e.g. clips are unsupported)
+    }
+    const dimensions = {
+      vidId,
+      top: this.chat.style.getPropertyValue('--overlay-chat-top'),
+      left: this.chat.style.getPropertyValue('--overlay-chat-left'),
+      height: this.chat.style.getPropertyValue('--overlay-chat-height'),
+      width: this.chat.style.getPropertyValue('--overlay-chat-width'),
+    }
+    const savedDimensions = JSON.parse(window.localStorage.getItem('overplaySavedDimensions')) ?? []
+    const dimIdx = savedDimensions.findIndex(dims => dims.vidId == vidId)
+    if (dimIdx !== -1) {
+      // remove the original save for this vidId first
+      savedDimensions.splice(dimIdx, 1)
+    }
+    savedDimensions.splice(0, savedDimensions.length - 24)
+    savedDimensions.push(dimensions)
+    window.localStorage.setItem('overplaySavedDimensions', JSON.stringify(savedDimensions))
+  }
+
+  loadChatDimensions() {
+    const savedDimensions = JSON.parse(window.localStorage.getItem('overplaySavedDimensions'))
+    const vidId = this.getVideoId()
+    const dimensions = savedDimensions.find(dims => dims.vidId === vidId)
+    this.chat.style.setProperty('--overlay-chat-top', dimensions.top)
+    this.chat.style.setProperty('--overlay-chat-left', dimensions.left)
+    this.chat.style.setProperty('--overlay-chat-height', dimensions.height)
+    this.chat.style.setProperty('--overlay-chat-width', dimensions.width)
+  }
+
   teardown() {
     if (this.fullscreenObserver) {
       this.fullscreenObserver.disconnect()
@@ -64,6 +101,8 @@ class OverlayChatManager {
     this.addDragMasks()
     this.addResizeHandle()
     this.addDragButton()
+
+    this.loadChatDimensions()
   }
 
   useNormalMode() {
@@ -96,21 +135,23 @@ class OverlayChatManager {
       return
     }
 
-    let chat = this.chat
-    let btn = document.createElement('div')
+    const chat = this.chat
+    const btn = document.createElement('div')
+    const saveChatDimensions = this.saveChatDimensions.bind(this)
     btn.classList.add('drag-button')
     btn.title = "Hold to drag."
 
     function startDrag(e) {
       document.body.classList.add('overlay-chat-dragging')
-      document.addEventListener('mousemove', dragHandler);
+      document.addEventListener('mousemove', dragHandler)
       document.addEventListener('mouseup', stopDrag, { once: true })
       console.log("Started drag")
     }
 
     function stopDrag(e) {
       document.body.classList.remove('overlay-chat-dragging')
-      document.removeEventListener('mousemove', dragHandler);
+      document.removeEventListener('mousemove', dragHandler)
+      saveChatDimensions()
       console.log("Stopped drag")
     }
 
@@ -137,21 +178,23 @@ class OverlayChatManager {
       return
     }
 
-    let chat = this.chat
-    let btn = document.createElement('div')
+    const chat = this.chat
+    const btn = document.createElement('div')
+    const saveChatDimensions = this.saveChatDimensions.bind(this)
     btn.classList.add('resize-handle')
     btn.title = "Hold to resize."
 
     function startDrag(e) {
       document.body.classList.add('overlay-chat-resizing')
-      document.addEventListener('mousemove', dragHandler);
+      document.addEventListener('mousemove', dragHandler)
       document.addEventListener('mouseup', stopDrag, { once: true })
       console.log("Started resize")
     }
 
     function stopDrag(e) {
       document.body.classList.remove('overlay-chat-resizing')
-      document.removeEventListener('mousemove', dragHandler);
+      document.removeEventListener('mousemove', dragHandler)
+      saveChatDimensions()
       console.log("Stopped resize")
     }
 
