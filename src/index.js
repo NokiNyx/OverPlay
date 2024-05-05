@@ -71,7 +71,10 @@ class OverlayChatManager {
   loadChatDimensions() {
     const savedDimensions = JSON.parse(window.localStorage.getItem('overplaySavedDimensions'))
     const vidId = this.getVideoId()
-    const dimensions = savedDimensions.find(dims => dims.vidId === vidId)
+    const dimensions = savedDimensions?.find(dims => dims.vidId === vidId)
+    if (!dimensions) {
+      return
+    }
     document.documentElement.style.setProperty('--overlay-chat-top', dimensions.top)
     document.documentElement.style.setProperty('--overlay-chat-left', dimensions.left)
     document.documentElement.style.setProperty('--overlay-chat-height', dimensions.height)
