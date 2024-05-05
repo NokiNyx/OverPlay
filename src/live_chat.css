@@ -128,6 +128,11 @@
     /* hide message input when not hovered over */
     opacity: 0;
   }
+
+  &[product-picker-open] {
+    position: static;
+    padding: 0;
+  }
 }
 
 .overlay-chat yt-live-chat-message-input-renderer #avatar,
