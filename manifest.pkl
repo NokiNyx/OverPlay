@@ -14,7 +14,7 @@ resources = new Listing {
 manifest {
     manifest_version = target_manifest_version
     name = "OverPlay - YouTube chat overlay in fullscreen"
-    version = "0.3.1"
+    version = "0.3.2"
     description = "Read and write chat messages while your YouTube player is in fullscreen mode."
     [if (target_manifest_version == 2) "permissions" else "host_permissions"] {
         yt_domain_match
