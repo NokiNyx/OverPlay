@@ -121,7 +121,7 @@ class OverlayChatManager {
     const { left, right, bottom } = this.chat.getBoundingClientRect()
     const { bottom: playerBottom, width: playerWidth } = this.chat.parentNode.getBoundingClientRect()
     document.body.classList.remove('bottom-chrome-left', 'bottom-chrome-right')
-    if (playerBottom - bottom < 54) {
+    if (playerBottom - bottom < 60) {
       const rightSpace = playerWidth - right
       document.body.classList.add(rightSpace >= left ? 'bottom-chrome-right' : 'bottom-chrome-left')
     }
