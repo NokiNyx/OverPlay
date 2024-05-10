@@ -94,7 +94,7 @@ class OverlayChatManager {
   useOverlayMode() {
     document.body.classList.add('overlay-chat')
     this.chat.parentNode.replaceChild(this.chatPlaceholder, this.chat)
-    this.theater.appendChild(this.chat)
+    this.theater.querySelector('#movie_player').appendChild(this.chat)
 
     this.overlayChatLoadListener = () => {
       this.chatIframe.contentDocument.body.classList.add('overlay-chat')

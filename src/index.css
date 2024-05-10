@@ -6,6 +6,7 @@
     --overlay-chat-width: calc(25vw - 24px);
 
     --overlay-chat-left-constrained: max(min(var(--overlay-chat-left), calc(100vw - 298px)), 24px);
+    --overlay-chat-height-constrained: min(var(--overlay-chat-height), calc(100% - var(--overlay-chat-top)));
     --overlay-chat-width-constrained: max(var(--overlay-chat-width), 298px);
 }
 
@@ -26,13 +27,20 @@ body.overlay-chat ytd-watch-flexy[flexy][js-panel-height_] #full-bleed-container
     left: var(--overlay-chat-left-constrained);
     top: var(--overlay-chat-top);
     margin: 0;
-    height: var(--overlay-chat-height);
+    height: var(--overlay-chat-height-constrained);
     width: var(--overlay-chat-width-constrained);
     min-height: 0px;
-    max-height: calc(100vh - var(--overlay-chat-top));
+    max-height: calc(100% - var(--overlay-chat-top));
     min-width: 298px;
     max-width: calc(100vw - var(--overlay-chat-left));
     border-radius: 0;
+    /* transition for moving chat when the seek bar is hovered over */
+    transition: top 0.1s;
+
+    /* no transition when dragging or resizing */
+    :is(.overlay-chat-dragging, .overlay-chat-resizing) & {
+        transition: none;
+    }
 }
 
 .overlay-chat ytd-live-chat-frame[darker-dark-theme] #show-hide-button.ytd-live-chat-frame {
@@ -100,20 +108,44 @@ div.resize-handle {
     }
 }
 
-.overlay-chat:is(.bottom-chrome-left, .bottom-chrome-right) .ytp-chrome-bottom {
-    width: auto !important;
-    left: 24px !important;
-    right: 24px !important;
+/* bottom chrome chat overlay evasion mode */
+.overlay-chat:is(.bottom-chrome-left, .bottom-chrome-right) {
 
-    .ytp-chapter-hover-container {
-        width: 100% !important;
+    .ytp-chrome-controls,
+    .ytp-progress-bar-container {
+        position: absolute;
+        width: auto;
+        left: 0;
+        right: 0;
+        transition: left 0.1s, right 0.1s;
+
+        .ytp-chapter-hover-container {
+            width: 100% !important;
+        }
+
+        .bottom-chrome-left & {
+            right: calc(100vw - var(--overlay-chat-left-constrained) - 24px);
+        }
+
+        .bottom-chrome-right & {
+            left: calc(var(--overlay-chat-left-constrained) + var(--overlay-chat-width-constrained) - 24px);
+        }
     }
 
-    .bottom-chrome-left & {
-        right: calc(100vw - var(--overlay-chat-left-constrained)) !important;
-    }
+    /* when a seekable seek bar is hovered over */
+    .ytp-chrome-bottom:has(.ytp-progress-bar-container:not([aria-disabled="true"]):hover) {
+        /* arrange the bottom chrome in front of chat; chat's z-index is 601 */
+        z-index: 700;
 
-    .bottom-chrome-right & {
-        left: calc(var(--overlay-chat-left-constrained) + var(--overlay-chat-width-constrained)) !important;
+        .ytp-progress-bar-container {
+            /* the seek bar returns to full length */
+            left: 0;
+            right: 0;
+        }
+
+        /* chat moves up above the seek bar */
+        ytd-watch-flexy[flexy][js-panel-height_] #full-bleed-container &~#chat.ytd-watch-flexy {
+            top: calc(100% - 60px - var(--overlay-chat-height-constrained));
+        }
     }
 }
