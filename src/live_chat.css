@@ -131,8 +131,8 @@
   /* immitate youtube's card style */
   border-radius: 4px;
 
-  &:not(:hover) {
-    /* hide message input when not hovered over */
+  /* hide message input when not hovered over and message input is empty */
+  &:not(:hover):has(div#input:empty) {
     opacity: 0;
   }
 
