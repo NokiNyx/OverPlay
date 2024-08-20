@@ -102,6 +102,13 @@
   overflow: hidden;
 }
 
+/* SuperChat thread modal */
+.overlay-chat ytd-engagement-panel-section-list-renderer[dialog][live-chat-engagement-panel] {
+  /* remove width limitation which caused the content to overflow */
+  width: unset;
+  min-width: unset;
+}
+
 .overlay-chat yt-icon-button#show-more {
   bottom: 20%;
 }
@@ -129,6 +136,7 @@
     opacity: 0;
   }
 
+  /* support menu (SCs, membership, etc) */
   &[product-picker-open] {
     position: static;
     padding: 0;
