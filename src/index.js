@@ -42,7 +42,7 @@ class OverlayChatManager {
   }
 
   getVideoId() {
-    return new URL(document.location.href).searchParams.get('v')
+    return document.querySelector('ytd-watch-flexy').getAttribute('video-id')
   }
 
   saveChatDimensions() {
