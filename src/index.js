@@ -12,6 +12,17 @@ class OverlayChatManager {
 
     this.chatIframe = chatIframe
 
+    this.chatUrl = null
+    this.chatIframe.addEventListener('load', () => {
+      const url = this.chatIframe.contentDocument.location.href
+      if (url !== 'about:blank') {
+        this.chatUrl = url
+      }
+    })
+
+    /** Whether the "chat has not loaded yet, retry when loaded to use overlay" alert has been shown already */
+    this.chatLoadWarningDisplayed = false
+
     this.listenToFullscreen()
 
     this.chat.addEventListener('mouseenter', () => {
@@ -92,6 +103,20 @@ class OverlayChatManager {
   }
 
   useOverlayMode() {
+    if (!this.chatUrl && !this.chatIframe.src) {
+      // if the chat hasn't loaded yet, do nothing
+      if (!this.chatLoadWarningDisplayed) {
+        alert("The chat has not loaded yet. Try to enter full-screen again after the chat is loaded to use the chat overlay.")
+        this.chatLoadWarningDisplayed = true
+      }
+      return
+    }
+
+    if (this.chatIframe.src !== this.chatUrl) {
+      // make it auto-load the chat URL upon rerender (when moved around by entering / exiting fullscreen)
+      this.chatIframe.src = this.chatUrl
+    }
+
     document.body.classList.add('overlay-chat')
     this.chat.parentNode.replaceChild(this.chatPlaceholder, this.chat)
     this.theater.querySelector('#movie_player').appendChild(this.chat)
@@ -222,7 +247,7 @@ class OverlayChatManager {
 
     function dragHandler(e) {
       const { x, y } = chat.getBoundingClientRect()
-      let newHeight = e.clientY -  y + 1 + 'px'
+      let newHeight = e.clientY - y + 1 + 'px'
       document.documentElement.style.setProperty('--overlay-chat-height', newHeight)
 
       let newWidth = e.clientX - x + 1 + 'px'
