@@ -51,6 +51,15 @@ manifest {
                     ...res.resources
                 }
             }
+    when (read("env:BUILD_TARGET") == "firefox") {
+        browser_specific_settings {
+            gecko {
+                strict_min_version = "121.0a1"
+            }
+        }
+    } else {
+        minimum_chrome_version = "105"
+    }
 }
 
 output {
