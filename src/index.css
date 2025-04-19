@@ -18,7 +18,7 @@ body.overlay-chat-resizing {
     cursor: se-resize;
 }
 
-body.overlay-chat ytd-watch-flexy[flexy][js-panel-height_] #full-bleed-container #chat.ytd-watch-flexy {
+body.overlay-chat ytd-watch-flexy[flexy] #full-bleed-container #chat.ytd-watch-flexy {
     border: 0;
     /* remove normal chat's border */
     position: absolute;
